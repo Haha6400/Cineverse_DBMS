@@ -8,7 +8,7 @@
 	<meta name="description" content="Creativeitem Software Installation" />
 	<meta name="author" content="Creativeitem" />
 
-	<title>Installation | Neoflex Video Subscription CMS</title>
+	<title>Installation | Cineverse Video Subscription CMS</title>
 	<?php include 'styles.php'; ?>
 </head>
 <body class="page-body">
