@@ -196,7 +196,7 @@
 			<!-- SEARCH FORM -->
 			<form class="navbar-form navbar-right" method="post" action="<?php echo base_url();?>index.php?browse/search">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Titles"
+					<input type="text" class="form-control" placeholder="Title/Director's name"
 						style="background-color: #000; border: 1px solid #808080; height:35px;" name="search_key">
 				</div>
 				<button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
