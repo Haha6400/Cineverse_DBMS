@@ -225,6 +225,12 @@
                    <span> <?php echo get_phrase('account'); ?> </span>
                </a>
            </li>
+           <li class="side-nav-item <?php if($page_name == 'backup')echo 'active';?>">
+               <a href="<?php echo base_url();?>index.php?admin/backup" class="side-nav-link <?php if($page_name == 'backup')echo 'active';?>">
+                   <i class="fa fa-file"></i>
+                   <span> <?php echo get_phrase('backup_&_restore'); ?> </span>
+               </a>
+           </li>
            <li class="side-nav-item <?php if($page_name == 'about')echo 'active';?>">
                <a href="<?php echo base_url();?>index.php?admin/about" class="side-nav-link <?php if($page_name == 'about')echo 'active';?>">
                    <i class="fa fa-info"></i>

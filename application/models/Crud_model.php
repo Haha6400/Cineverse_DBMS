@@ -17,6 +17,63 @@ class Crud_model extends CI_Model {
 	}
 
 	/*
+	* DATABASES BACKUP & RESTORE
+	*/
+	function backup_database()
+	{
+		#30 14 * * * /usr/bin/mysqldump --user=root --password= --databases netflixdb | gzip > /home/someuser/backup.$(date +"%d_%m_%Y_%H_%M_%S").sql.gz
+		$this->load->dbutil();
+    	$prefs = array(     
+        'format'      => 'zip',             
+    	'filename'    => 'my_db_backup.sql'
+    	);
+		
+    	$backup =& $this->dbutil->backup($prefs); 
+    	$db_name = "backup_on_" . date("d_m_Y_h_i_s_a") . ".zip";
+    	$save = 'uploads/dbbackup/'.$db_name;
+    	$this->load->helper('file');
+    	write_file($save, $backup); 
+    	$this->load->helper('download');
+    	force_download($db_name, $backup);
+    	// define("BACKUP_PATH", "C:/xampp/htdocs/Netflix/");
+
+		// $server_name   = "localhost";
+		// $username      = $this->db->username;
+		// $password      = $this->db->password;
+		// $database_name = $this->db->database;
+		// $date_string   = date("Ymd");
+		// $cmd = "C:/xampp/mysql/bin/mysqldump --routines -h {$server_name} -u {$username} -p{$password} {$database_name} > " . BACKUP_PATH . "{$date_string}_{$database_name}.sql";
+		// exec($cmd);
+	}
+
+	function drop_database()
+	{
+		$sql = $this->db->query("SHOW TABLES");
+		if ($sql->num_rows() > 0) {
+			$query = $this->db->query('DROP TABLE actor, country, currency, director, episode, faq, genre, movie, plan, progress, season, series, subscription, subtitle');
+			return $query;
+		} else {
+			return true;
+		}
+	}
+	function restore_database() 
+	{
+		$date = date("Y_m_d H-i-s");
+		$target='assets/backend/dbs/'.$date.'.sql';
+		$target = $target;
+		move_uploaded_file($_FILES['databases']['tmp_name'], $target);
+		$this->crud_model->drop_database();
+		$assign_file = file_get_contents($target);
+		$string_query = rtrim($assign_file, "\n;");
+		$array_query = explode(";", $string_query);
+
+		foreach($array_query as $query) {
+			$this->db->query($query);
+		}
+		//unlink($target);
+		echo 'Restored';
+	}
+	/*
 	* PLANS QUERIES
 	*/
 

@@ -25,6 +25,30 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index', $page_data);
 	}
 
+	//BACKUP DATABASE
+	function backup()
+	{
+		$user_id	=	$this->session->userdata('user_id');
+		if (isset($_POST) && !empty($_POST))
+		{
+			$task	=	$this->input->post('task');
+			if ($task == 'save_database')
+			{	
+				$this->crud_model->backup_database();
+				redirect(base_url().'index.php?admin/backup' , 'refresh');
+				
+			}
+			else if ($task == 'restore')
+			{
+				$this->crud_model->restore_database();
+				redirect(base_url().'index.php?admin/backup' , 'refresh');
+			}
+		}
+		$page_data['page_name']				=	'backup';
+		$page_data['page_title']			=	'Backup & Restore';
+		$this->load->view('backend/index', $page_data);
+	}
+
 	// WATCH LIST OF GENRE, MANAGE THEM
 	function genre_list()
 	{
