@@ -1089,5 +1089,6 @@
     "create": "Create",
     "edit_country": "Edit country",
     "all_countries": "All countries",
-    "your_email_password": "Your email password"
+    "your_email_password": "Your email password",
+    "backup_&_restore": "Backup & restore"
 }
