@@ -53,7 +53,8 @@ class Browse extends CI_Controller {
 		$page_data['page_title']	=	'Search result';
 		$this->load->view('frontend/index', $page_data);
 
-	}
+	} 
+	
 
 	function process_list($type = '', $task = '', $id = '')
 	{

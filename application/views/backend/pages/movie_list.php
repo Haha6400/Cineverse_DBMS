@@ -5,6 +5,11 @@
             <i class="fa fa-plus"></i>
             Create movie
         </a>
+        <a href="<?php echo base_url(); ?>index.php?admin/movie_import/" class="btn btn-primary"
+            style="float:right; margin-top: -40px; margin-bottom: 20px;">
+            <i class="fa fa-plus"></i>
+            Import movie
+        </a>
     </div><!-- end col-->
 </div>
 

@@ -77,8 +77,8 @@
                </a>
            </li>
 
-           <li class="side-nav-item <?php if ($page_name == 'movie_list' || $page_name == 'movie_edit' || $page_name == 'movie_create')echo 'active';?>">
-               <a href="<?php echo base_url();?>index.php?admin/movie_list" class="side-nav-link  <?php if ($page_name == 'movie_list' || $page_name == 'movie_edit' || $page_name == 'movie_create')echo 'active';?>">
+           <li class="side-nav-item <?php if ($page_name == 'movie_list' || $page_name == 'movie_edit' || $page_name == 'movie_create' || $page_name == 'movie_import' )echo 'active';?>">
+               <a href="<?php echo base_url();?>index.php?admin/movie_list" class="side-nav-link  <?php if ($page_name == 'movie_list' || $page_name == 'movie_edit' || $page_name == 'movie_create' || $page_name == 'movie_import')echo 'active';?>">
                    <i class="fa fa-film"></i>
                    <span> <?php echo get_phrase('movies'); ?> </span>
                </a>

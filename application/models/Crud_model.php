@@ -817,13 +817,28 @@ class Crud_model extends CI_Model {
 		return $my_list_array;
 	}
 
+	// function get_search_result($type = '', $search_key = '')
+	// {
+	// 	$this->db->like('title', $search_key);
+	// 	$query	=	$this->db->get($type);
+	// 	return $query->result_array();
+	// }
+
 	function get_search_result($type = '', $search_key = '')
 	{
 		$this->db->like('title', $search_key);
+		// $this->db->like('director_name', $search_key);
 		$query	=	$this->db->get($type);
-		return $query->result_array();
+		if ($query->result_array()) {
+			return $query->result_array();
+		} else {
+			$this->db->like('director_name', $search_key);
+			$query	=	$this->db->get($type);
+			return $query->result_array();
+		}
 	}
 
+	
 	function get_thumb_url($type = '' , $id = '')
 	{
         if (file_exists('assets/global/'.$type.'_thumb/' . $id . '.jpg'))

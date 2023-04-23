@@ -2,6 +2,7 @@
 <!-- MOVIE LIST, GENRE WISE LISTING -->
 <?php
 	$search_key = str_replace('%20', ' ', $search_key);
+	// $search_type = 'actors';
 	$movies		=	$this->crud_model->get_search_result('movie' , $search_key);
 	$series		=	$this->crud_model->get_search_result('series', $search_key);
 	?>
@@ -19,10 +20,11 @@
 					$thumb	=	$this->crud_model->get_thumb_url('movie' , $row['movie_id']);
 					include 'thumb.php';
 				}
-				
 				foreach ($series as $row)
 				{
 					$title	=	$row['title'];
+					// $actor	=	$row['actor'];
+					// $director	=	$row['director.name'];
 					$link	=	base_url().'index.php?browse/playseries/'.$row['series_id'];
 					$thumb	=	$this->crud_model->get_thumb_url('series' , $row['series_id']);
 					include 'thumb.php';

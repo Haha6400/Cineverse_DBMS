@@ -163,6 +163,15 @@ class Admin extends CI_Controller {
 		$this->load->view('backend/index', $page_data);
 	}
 
+	// IMPORT MOVIES
+	function movie_import()
+	{
+		$page_data['page_name'] = 'movie_import';
+		$page_data['page_title'] = 'Import Movie';
+		$this->load->view('backend/index', $page_data);
+		// echo "<pre>";
+		// echo $fileName;
+	}
 
 
 

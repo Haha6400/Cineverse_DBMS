@@ -1092,5 +1092,6 @@
     "your_email_password": "Your email password",
     "backup_&_restore": "Backup & restore",
     "save_database": "Save database",
-    "restore": "Restore"
+    "restore": "Restore",
+    "backup_&_restore": "Backup & restore"
 }
