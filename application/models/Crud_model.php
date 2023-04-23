@@ -522,6 +522,7 @@ class Crud_model extends CI_Model {
 
 	function create_movie()
 	{
+		$this->db->trans_start();
 		$data['title']				=	$this->input->post('title');
 		$data['description_short']	=	$this->input->post('description_short');
 		$data['description_long']	=	$this->input->post('description_long');
@@ -551,6 +552,7 @@ class Crud_model extends CI_Model {
 
 		$this->db->insert('movie', $data);
 		$movie_id = $this->db->insert_id();
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/movie_thumb/' . $movie_id . '.jpg');
 		move_uploaded_file($_FILES['poster']['tmp_name'], 'assets/global/movie_poster/' . $movie_id . '.jpg');
 		//move_uploaded_file($_FILES['vtt_file']['tmp_name'], 'assets/global/movie_caption/' . $movie_id . '.vtt');
@@ -559,6 +561,7 @@ class Crud_model extends CI_Model {
 
 	function update_movie($movie_id = '')
 	{
+		$this->db->trans_start();
 		$data['title']				=	$this->input->post('title');
 		$data['description_short']	=	$this->input->post('description_short');
 		$data['description_long']	=	$this->input->post('description_long');
@@ -587,7 +590,7 @@ class Crud_model extends CI_Model {
 		$data['actors']				=	json_encode($actor_entries);
 
 		$this->db->update('movie', $data, array('movie_id'=>$movie_id));
-
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/movie_thumb/' . $movie_id . '.jpg');
 		move_uploaded_file($_FILES['poster']['tmp_name'], 'assets/global/movie_poster/' . $movie_id . '.jpg');
 		//move_uploaded_file($_FILES['vtt_file']['tmp_name'], 'assets/global/movie_caption/' . $movie_id . '.vtt');
@@ -595,23 +598,28 @@ class Crud_model extends CI_Model {
 	}
 
 	function add_subtitle($param1 = ""){
+		$this->db->trans_start();
 		$data['movie_id'] = $param1;
 		$data['language'] = $this->input->post('language');
 		$data['file']	  = $this->input->post('language').'-'.$param1.'.vtt';
 		$this->db->insert('subtitle', $data);
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['file']['tmp_name'], 'assets/global/movie_caption/'.$this->input->post('language').'-'.$param1 . '.vtt');
 	}
 
 	function edit_subtitle($param1 = "", $param2 = ""){
+		$this->db->trans_start();
 		$data['language'] = $this->input->post('language');
 		$data['file']	  = $this->input->post('language').'-'.$param2.'.vtt';
 		$this->db->where('id', $param1);
 		$this->db->update('subtitle', $data);
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['file']['tmp_name'], 'assets/global/movie_caption/'.$this->input->post('language').'-'.$param2 . '.vtt');
 	}
 
 	function create_series()
 	{
+		$this->db->trans_start();
 		$data['title']				=	$this->input->post('title');
 		$data['trailer_url']	=	$this->input->post('series_trailer_url');
 		$data['description_short']	=	$this->input->post('description_short');
@@ -632,6 +640,7 @@ class Crud_model extends CI_Model {
 
 		$this->db->insert('series', $data);
 		$series_id = $this->db->insert_id();
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/series_thumb/' . $series_id . '.jpg');
 		move_uploaded_file($_FILES['poster']['tmp_name'], 'assets/global/series_poster/' . $series_id . '.jpg');
 
@@ -639,6 +648,7 @@ class Crud_model extends CI_Model {
 
 	function update_series($series_id = '')
 	{
+		$this->db->trans_start();
 		$data['title']				=	$this->input->post('title');
 		$data['trailer_url']				=	$this->input->post('series_trailer_url');
 		$data['description_short']	=	$this->input->post('description_short');
@@ -658,6 +668,7 @@ class Crud_model extends CI_Model {
 		$data['actors']				=	json_encode($actor_entries);
 
 		$this->db->update('series', $data, array('series_id'=>$series_id));
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/series_thumb/' . $series_id . '.jpg');
 		move_uploaded_file($_FILES['poster']['tmp_name'], 'assets/global/series_poster/' . $series_id . '.jpg');
 
@@ -695,47 +706,69 @@ class Crud_model extends CI_Model {
 
 	function create_actor()
 	{
+		$this->db->trans_start();
 		$data['name']				=	$this->input->post('name');
 		$this->db->insert('actor', $data);
 		$actor_id = $this->db->insert_id();
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/actor/' . $actor_id . '.jpg');
 	}
 
 	function update_actor($actor_id = '')
 	{
+		$this->db->trans_start();
 		$data['name']				=	$this->input->post('name');
 		$this->db->update('actor', $data, array('actor_id'=>$actor_id));
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/actor/' . $actor_id . '.jpg');
 	}
 
 	function create_director()
 	{
+		$this->db->trans_start();
+		$sql ="LOCK TABLES director WRITE";
+		$this->db->query($sql);
 		$data['name']				=	$this->input->post('name');
 		$this->db->insert('director', $data);
 		$director_id = $this->db->insert_id();
+		$sql = "COMMIT";
+		$this->db->query($sql);
+		$sql = "UNLOCK TABLES";
+		$this->db->query($sql);
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/director/' . $director_id . '.jpg');
 	}
 
 	function update_director($director_id = '')
 	{
+		$this->db->trans_start();
+		$sql ="LOCK TABLES director READ";
+		$this->db->query($sql);
 		$data['name']				=	$this->input->post('name');
 		$this->db->update('director', $data, array('director_id'=>$director_id));
+		$sql = "UNLOCK TABLES";
+		$this->db->query($sql);
+		$this->db->trans_complete();
 		move_uploaded_file($_FILES['thumb']['tmp_name'], 'assets/global/director/' . $director_id . '.jpg');
 	}
 
 	function create_user()
 	{
+		$this->db->trans_start();
 		$data['name']				=	$this->input->post('name');
 		$data['email']				=	$this->input->post('email');
 		$data['password']			=	sha1($this->input->post('password'));
 		$this->db->insert('user', $data);
+		$this->db->trans_complete();
 	}
 
 	function update_user($user_id = '')
 	{
+		$this->db->trans_start();
 		$data['name']				=	$this->input->post('name');
 		$data['email']				=	$this->input->post('email');
 		$this->db->update('user', $data, array('user_id'=>$user_id));
+		$this->db->trans_complete();
 	}
 
     function get_mylist_exist_status($type ='', $id ='')
