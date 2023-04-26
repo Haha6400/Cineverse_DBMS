@@ -1090,5 +1090,9 @@
     "edit_country": "Edit country",
     "all_countries": "All countries",
     "your_email_password": "Your email password",
-    "backup_&_restore": "Backup & restore"
+    "backup_&_restore": "Backup & restore",
+    "save_database": "Save database",
+    "restore": "Restore",
+    "pay_by_momo": "Pay by momo",
+    "pay_by_zalopay": "Pay by zalopay"
 }

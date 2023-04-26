@@ -45,6 +45,11 @@
 
                         	<!--Convert secoend -> H, M, S  -->
                         	<?php
+								if ($movie_detail->duration = 0) {
+									$seconds = 0;
+									$minutes = 0;
+									$hours = 0;
+								}
                         		$seconds = $movie_detail->duration % 60;
                         		$minutes = (($movie_detail->duration - $seconds)/60)%60;
                         		$hours	 = intval(($movie_detail->duration / 60) / 60);
