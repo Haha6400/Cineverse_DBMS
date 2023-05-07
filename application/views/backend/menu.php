@@ -162,25 +162,6 @@
                </a>
            </li>
 
-            <li
-            <?php
-            $is_active = '';
-            if ( $page_name == 'addons' || $page_name == 'addon_add' || $page_name == 'available_addons' || $page_name == 'about_addon') $is_active = 'opened'; ?> class="side-nav-item <?php echo $is_active; ?>">
-                <a href="javascript: void(0);" class="side-nav-link <?php echo $is_active; ?>">
-                    <i class="fa fa-plug" aria-hidden="true"></i>
-					<span> <?php echo get_phrase('addons'); ?> </span>
-                </a>
-                <ul class="side-nav-second-level" aria-expanded="false">
-                    <li class = "<?php if($page_name == 'addons' || $page_name == 'about_addon') echo 'active'; ?>">
-                        <a href="<?php echo site_url('index.php?admin/addon'); ?>"><?php echo get_phrase('addon_manager'); ?></a>
-                    </li>
-
-                    <li class = "<?php if($page_name == 'available_addons') echo 'active'; ?>">
-                        <a href="<?php echo site_url('index.php?admin/available_addons'); ?>"><?php echo get_phrase('available_addons'); ?></a>
-                    </li>
-                </ul>
-            </li>
-
            <li
            <?php
            $is_active = '';

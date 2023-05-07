@@ -1093,6 +1093,10 @@
     "backup_&_restore": "Backup & restore",
     "save_database": "Save database",
     "restore": "Restore",
+<<<<<<< HEAD
     "pay_by_momo": "Pay by momo",
     "pay_by_zalopay": "Pay by zalopay"
+=======
+    "backup_&_restore": "Backup & restore"
+>>>>>>> 58821438bb8f3921ced18105d42be47cf010e048
 }
